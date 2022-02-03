@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script type="module" src="new-tab.js"></script>
+    <script type="application/javascript" src="translation.js"></script>
+    <link href="new-tab.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons">
+</head>
+
+
+<body>
+    <div class="main-wrapper">
+        <div class="background" id="page-background"> </div>
+        <div class="clock-wrapper">
+            <div id="time" class="white-text-with-stroke"></div>
+            <div class="date-separator"></div>
+            <div class="date white-text-with-stroke" id="date"></div>
+        </div>
+
+        <div class="search-wrapper" id="search-wrapper">
+            <form id="search-form" class="form-container">
+                <input type="text" name="search-query" class="search-field" id="search-field" i18n-placeholder="search">
+                <button class="button-background submit-button" type="submit">
+                    <span class="search-button" id="search-icon"></span>
+                </button>
+            </form>
+        </div>
+
+        <div class="bookmarks-wrapper" id="bookmarks-wrapper">
+            <div class="bookmarks-items" id="bookmarks-items"></div>
+        </div>
+
+        <div class="weather-wrapper" id="weather-wrapper">
+            <div class="weather-background" id="weather-background">
+                <span class="click-me-info" i18n-key="click-me-info" id="click-me-info"></span>
+                <div class="weather-info" id="weather-info"></div>
+            </div>
+        </div>
+
+        <div class="settings-button-wrapper">
+            <button type="button" class="settings-button button-background" id="settings-button" i18n-title="settings">
+                <span class="material-icons settings-button-icon">settings</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="settings-full-screen" id="settings-full-screen">
+        <div class="settings-wrapper" id="settings-wrapper">
+
+            <div>
+                <button id="close-settings" class="button-background close-button white-button">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            <div class="language-settings">
+                <span i18n-key="choose-lang" class="language-select-label"></span>
+                <select id="lang-options">
+                    <option value="en" i18n-key="english"></option>
+                    <option value="sr" i18n-key="serbian"></option>
+                </select>
+            </div>
+            <div class="separator"></div>
+            <div id="weather-setting">
+                <div>
+                    <input type="checkbox" id="show-weather">
+                    <label i18n-key="show-weather" class="checkbox-label" for="show-weather"></label>
+                </div>
+                <form id="weather-form" class="weather-form">
+                    <input type="text" id="city" class="weather-input" name="city" i18n-placeholder="city" required>
+                    <button type="submit" class="button-background white-button" id="city-button">
+                        <span class="material-icons">done</span>
+                    </button>
+                    <div class="tooltip-weather">
+                        <button class="button-background tooltip-weather-button">
+                            <span class="material-icons">
+                                help
+                            </span>
+                        </button>
+                        <span class="tooltip-weather-text" i18n-key="tooltip-weather"></span>
+                    </div>
+                </form>
+            </div>
+
+            <div class="separator"></div>
+
+            <div id="clock-settings">
+                <div>
+                    <input type="checkbox" id="show-clock">
+                    <label i18n-key="show-clock" class="checkbox-label" for="show-clock"></label>
+                </div>
+                <div>
+                    <input type="checkbox" id="show-seconds">
+                    <label i18n-key="show-seconds" class="checkbox-label" for="show-seconds"></label>
+                </div>
+                <div>
+                    <input type="checkbox" id="show-date">
+                    <label i18n-key="show-date" class="checkbox-label" for="show-date"></label>
+                </div>
+            </div>
+            <div class="separator"></div>
+
+            <div id="bookmarsk-settings">
+                <div>
+                    <input type="checkbox" id="show-bookmarks">
+                    <label i18n-key="show-bookmarks" class="checkbox-label" for="show-bookmarks"></label>
+                </div>
+                <button id="bookmark-add-button" class="button-background white-button bookmark-add-button"
+                        i18n-title="open-bookmark-form" fn="open"><span class="material-icons">add</span></button>
+                <div class="add-bookmark-wrapper" id="add-bookmark-wrapper">
+                    <form id="form-adding-bookmark">
+                        <input type="text" class="bookmark-title-field" id="bookmark-title-field"
+                               i18n-placeholder="bookmark-title" required>
+                        <input type="text" class="bookmark-url-field" id="bookmark-url-field"
+                               i18n-placeholder="bookmark-url" required>
+                        <div class="button-wrapper">
+                            <button i18n-key="add" type="submit"></button>
+                        </div>
+                        <input type="text" hidden>
+                    </form>
+                </div>
+                <div id="bookmark-list" class="bookmark-list bookmark-list-items-wrapper"></div>
+            </div>
+            <div class="separator"></div>
+
+            <div id="search-settings">
+                <div>
+                    <input type="checkbox" id="show-search">
+                    <label i18n-key="show-search" class="checkbox-label" for="show-search"></label>
+                </div>
+                <div class="search-eng-div">
+                    <span i18n-key="choose-search" class="search-select-label"></span>
+                    <select id="search-options">
+                        <option label="Google" value="google"></option>
+                        <option label="Yahoo!" value="yahoo"></option>
+                        <option label="DuckDuckGo" value="duck"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="separator"></div>
+
+            <div id="background-settings">
+                <div id="radio-group">
+                    <span i18n-key="choose-background" class="checkbox-label"></span>
+                    <div>
+                        <input type="radio" id="picsum" name="background-source" value="picsum">
+                        <label for="picsum" i18n-key="random-image"></label>
+                    </div>
+                    <div>
+                        <input type="radio" id="gradient" name="background-source" value="gradient">
+                        <label for="gradient">Gradient</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="single-color" name="background-source" value="single-color">
+                        <label for="single-color" i18n-key="single-color"></label>
+                    </div>
+                </div>
+                <div id="color-picker-ph" class="color-picker-ph">
+                    <input type="color" id="color1" value="#e66465" class="color-picker">
+                    <input type="color" id="color2" value="#ffff7d" class="color-picker">
+                </div>
+            </div>
+            <a href="#" id="toggle-homepage-info" class="toggle-homepage-info" i18n-key="show-homepage-info"
+               fn="open"></a>
+            <div class="settings-homepage" id="settings-homepage">
+                <span i18n-key="homepage-info" class="homepage-info"></span>
+                <div class="url-info" id="url-info"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <template id="bookmark-item">
+        <a class="bookmark-link" id="bookmark-link">
+            <div class="bookmark-item" id="bookmark-item">
+                <img class="bookmark-icon" id="bookmark-icon">
+                <span class="bookmark-title" id="bookmark-title"></span>
+            </div>
+        </a>
+    </template>
+
+    <template id="bookmark-list-item">
+        <div class="bookmark-list-item">
+            <div class="left-item-part">
+                <img class="bookmark-list-icon" id="bookmark-list-item-icon">
+                <span class="bookmark-list-title" id="bookmark-list-item-title"></span>
+            </div>
+            <div>
+                <button class="remove-bm-button button-background"><span
+                          class="material-icons remove-bm-icon">close</span></button>
+                <button class="edit-bm-button button-background"><span
+                          class="material-icons edit-bm-icon">edit</span></button>
+            </div>
+        </div>
+    </template>
+
+    <template id="no-bookmark">
+        <div class="no-bookmarks-wrapper">
+            <div class="no-bookmark-info" i18n-key="no-bookmark-title"></div>
+            <div class="no-bookmarks-instruction" i18n-key="no-bookmark-info"></div>
+            <div>
+    </template>
+
+    <template id="weather-temp">
+        <div id="location" class="weather-location">
+            <span class="city"></span>
+            <span class="country"></span>
+        </div>
+        <div id=weather-data>
+            <div>
+                <img alt="weather-icon" class="weather-icon">
+                <div class="weather-data" id="description"></div>
+                <div>
+                    <span class="weather-label" i18n-key="current-temp"></span>
+                    <span class="weather-data current-temp"></span>
+                </div>
+                <div>
+                    <span class="temp-min">Min </span><span class="weather-data" id="min-temp"></span>
+                    <span class="temp-max">Max </span><span class="weather-data" id="max-temp"></span>
+                </div>
+                <div>
+                    <span class="weather-label" i18n-key="feel-like"></span>
+                    <span class="weather-data" id="feel-like"></span>
+                </div>
+
+            </div>
+            <div id="extra-info" class="extra-info">
+                <div>
+                    <span class="weather-label" i18n-key="humidity"></span>
+                    <span class="weather-data" id="humidity"></span>
+                </div>
+                <div>
+                    <span class="weather-label" i18n-key="pressure"></span>
+                    <span class="weather-data" id="pressure"></span>
+                </div>
+                <div>
+                    <span class="weather-label" i18n-key="wind-speed"></span>
+                    <span class="weather-data" id="wind-speed"></span><span> m/s</span>
+                </div>
+                <div>
+                    <span class="weather-label" i18n-key="sunrise"></span>
+                    <span class="weather-data" id="sunrise"></span>
+                </div>
+                <div>
+                    <span class="weather-label" i18n-key="sunset"></span>
+                    <span class="weather-data" id="sunset"></span>
+                </div>
+                <div>
+                    <span class="weather-update-time" i18n-key="last-update"></span>
+                    <span class="weather-data" id="refresh-time"></span>
+                </div>
+            </div>
+            <a href="https://openweathermap.org" class="open-weather" i18n-key="data-from"></a>
+        </div>
+    </template>
+
+    <template id="date-temp">
+        <span id="day"></span><span>, </span>
+        <span id="date"></span>
+        <span id="month"></span>
+    </template>
+
+</body>
+
+</html>
