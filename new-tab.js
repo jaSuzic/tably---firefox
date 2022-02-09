@@ -40,7 +40,6 @@ var dateTemp = document.getElementById('date-temp');
 callInitFunctions();
 
 function callInitFunctions() {
-    browser.scrip
     getLanguage();
     createListeners();
     getBookmarks();
@@ -234,23 +233,6 @@ function readInitShowSecondsState() {
     })
 }
 
-function readInitShowClock() {
-    getProperty('showClock').then(res => {
-        if (res.showClock) {
-            document.getElementById('time').style.display = 'block';
-            readInitShowSecondsState();
-            disableSecondsCheckbox(false);
-            toggleDateBorder(true)
-        } else if (res.showClock === false) {
-            document.getElementById('time').style.display = 'none';
-            disableSecondsCheckbox(true);
-            toggleDateBorder(false);
-        } else {
-            setProperty('showClock', true);
-        }
-    })
-}
-
 function initClock() {
     if (!clockInterval) {
         generateClockTime();
@@ -284,10 +266,6 @@ function setClockInterval() {
 
 function disableSecondsCheckbox(disable) {
     toggleSecondsElement.disabled = disable;
-}
-
-function cancelClockInterval() {
-    clearInterval(clockInterval);
 }
 
 function toggleDateBorder(show) {
